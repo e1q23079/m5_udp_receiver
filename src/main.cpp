@@ -23,6 +23,11 @@ void setup() {
     M5.Display.printf("SSID:%s\n", SSID);
     M5.Display.printf("PASSWORD:%s\n", PASSWORD);
     M5.Display.println(WiFi.softAPIP());  // ホストIPアドレス
+
+    pinMode(10, OUTPUT);     // LEDピン設定
+    digitalWrite(10, HIGH);  // LED_OFF
+
+    wifiudp.begin(port);  // UDP開始
 }
 
 void loop() {
@@ -30,9 +35,9 @@ void loop() {
         char x;
         x = (char)wifiudp.read();
         if (x == '1') {
-            pinMode(10, OUTPUT);  // LED_ON
+            digitalWrite(10, LOW);  // LED_ON
             sleep(1);
-            pinMode(10, HIGH);  // LED_OFF
+            digitalWrite(10, HIGH);  // LED_OFF
         }
     }
 }
